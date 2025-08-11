@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="128" fill="#0d0f12"/>
+  <g fill="#ffffff" stroke="none" transform="translate(256 256) scale(0.9) translate(-256 -256)">
+    <!-- Simplified crest derived from provided logo concept: abstract leaves + circuitry + monogram AI -->
+    <path d="M256 96c-14 28-37 52-66 70-40 25-66 66-66 112 0 62 50 112 112 112s112-50 112-112c0-46-26-87-66-112-29-18-52-42-66-70Z" fill="#ffffff22"/>
+    <path d="M248 140v232h16V140l72 120h-40l32 52h-48v60h-16v-60h-48l32-52h-40l72-120Z" fill="#fff"/>
+    <path d="M150 212c-22 30-34 66-34 102 0 30 8 59 24 84l14-10c-14-22-22-48-22-74 0-32 10-63 30-90l-12-12Z" fill="#fff"/>
+    <path d="M362 212l-12 12c20 27 30 58 30 90 0 26-8 52-22 74l14 10c16-25 24-54 24-84 0-36-12-72-34-102Z" fill="#fff"/>
+    <circle cx="362" cy="322" r="10" fill="#00d8ff"/>
+    <circle cx="150" cy="322" r="10" fill="#00d8ff"/>
+  </g>
+</svg>

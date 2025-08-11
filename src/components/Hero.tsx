@@ -3,7 +3,7 @@ import { LottieSparkle } from './LottieSparkle';
 
 export const Hero = () => {
   return (
-    <section id="hero" className="relative mx-auto flex min-h-[90vh] max-w-6xl flex-col items-start justify-center gap-10 px-6">
+    <section id="hero" className="relative mx-auto flex min-h-[60vh] max-w-6xl flex-col items-start justify-center gap-10 px-6">
       <div className="absolute -top-10 left-1/2 h-[600px] w-[900px] -translate-x-1/2 animate-pulse-slow rounded-full bg-gradient-to-r from-brand-500/30 via-fuchsia-500/30 to-emerald-400/30 blur-3xl" />
       <div className="relative z-10 max-w-2xl">
         <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs backdrop-blur-md">

@@ -15,7 +15,7 @@ export const Projects = () => {
   const filtered = useMemo(() => data.projects.filter(p => p.category === active), [active]);
 
   return (
-    <section id="projects" className="relative mx-auto max-w-6xl px-6 py-32">
+    <section id="projects" className="relative mx-auto max-w-6xl px-6 py-24">
       <div className="text-center mb-10">
         <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight">My Projects</h2>
         <p className="mt-3 text-sm md:text-base text-neutral-400 max-w-2xl mx-auto">A selection of my work across different domains.</p>
