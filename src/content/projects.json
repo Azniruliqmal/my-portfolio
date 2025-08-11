@@ -1,0 +1,76 @@
+{
+  "projects": [
+    {
+      "title": "MamyPoko UI",
+      "subtitle": "Client Brand Enhancement",
+      "description": "High-impact UI/UX design solutions improving clarity & brand visibility across e-commerce touchpoints.",
+      "tags": ["UI Audit", "Brand", "Design System"],
+      "url": "#",
+      "category": "uiux"
+    },
+    {
+      "title": "GIMMedia UX",
+      "subtitle": "Website Revamp",
+      "description": "Led end-to-end management and UX improvement of the official GIMMedia website with accessibility upgrades.",
+      "tags": ["Information Architecture", "Accessibility", "Web"],
+      "url": "#",
+      "category": "uiux"
+    },
+    {
+      "title": "E-commerce Flow",
+      "subtitle": "Checkout Optimization",
+      "description": "Conceptual redesign streamlining cart → checkout flow reducing friction and highlighting trust signals.",
+      "tags": ["UX Research", "Flow Mapping", "Wireframes"],
+      "url": "#",
+      "category": "uiux"
+    },
+    {
+      "title": "Fintech Dashboard Redesign",
+      "subtitle": "Analytics Experience",
+      "description": "Task success +32% via progressive disclosure, semantic color, and responsive data density controls.",
+      "tags": ["Design System", "Accessibility", "Dashboard"],
+      "url": "#",
+      "category": "uiux"
+    },
+    {
+      "title": "Wellness Mobile App",
+      "subtitle": "Habit Formation Prototype",
+      "description": "Cross-platform prototype with adaptive theming and personalized habit loop engine.",
+      "tags": ["React Native", "Prototype", "Statecharts"],
+      "url": "#",
+      "category": "app"
+    },
+    {
+      "title": "Micro-learning App",
+      "subtitle": "Gamified Lessons",
+      "description": "Lightweight mobile experience delivering bite-sized lessons with streaks & progress analytics.",
+      "tags": ["Gamification", "Mobile", "UX"],
+      "url": "#",
+      "category": "app"
+    },
+    {
+      "title": "Interactive 3D Landing",
+      "subtitle": "Immersive Microsite",
+      "description": "Three.js narrative scroll with GPU particles and subtle depth-guided parallax.",
+      "tags": ["Three.js", "Motion", "Storytelling"],
+      "url": "#",
+      "category": "multimedia"
+    },
+    {
+      "title": "Product Explainer Video",
+      "subtitle": "Motion & Editing",
+      "description": "Animated explainer combining UI captures, kinetic typography and branded transitions.",
+      "tags": ["After Effects", "Editing", "Brand"],
+      "url": "#",
+      "category": "multimedia"
+    },
+    {
+      "title": "Brand Motion Reel",
+      "subtitle": "Showreel Montage",
+      "description": "Cut showcasing motion principles across UI interactions, logo reveals and micro-animations.",
+      "tags": ["Motion", "Reel", "Showcase"],
+      "url": "#",
+      "category": "multimedia"
+    }
+  ]
+}

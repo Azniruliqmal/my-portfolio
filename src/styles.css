@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #3b82f6, #a855f7); border-radius: 9999px; }
+
+html { -webkit-font-smoothing: antialiased; }
+body { font-feature-settings: "ss01" 1, "cv02" 1; }
+
+/* Layered radial gradient for subtle texture */
+body::before { content: ""; position: fixed; inset: 0; pointer-events: none; background: radial-gradient(circle at 25% 15%, rgba(59,130,246,0.08), transparent 60%), radial-gradient(circle at 75% 75%, rgba(168,85,247,0.08), transparent 65%); mix-blend-mode: plus-lighter; }
+
+.animate-pulse-slow { animation: pulse-slow 8s ease-in-out infinite; }
+@keyframes pulse-slow { 0%,100% { transform: scale(1); opacity: .7;} 50% { transform: scale(1.15); opacity: 1; } }
