@@ -1,5 +1,5 @@
 export const Contact = () => (
-  <section id="contact" className="mx-auto max-w-6xl px-6 py-24">
+  <section id="contact" className="mx-auto min-h-[60vh] max-w-6xl px-6 py-24">
     <h2 className="font-display text-3xl font-bold md:text-5xl mb-8">Contact</h2>
     <p className="text-neutral-300">Let’s collaborate. Reach out for product design, UI/UX consulting, or multimedia storytelling projects.</p>
     <div className="mt-8 flex flex-wrap gap-4">

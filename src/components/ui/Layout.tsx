@@ -5,23 +5,93 @@ import { useEffect, useState } from 'react';
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
+  // Scroll spy for active section
+  const [active, setActive] = useState<string>('hero');
+  useEffect(() => {
+    const sectionIds = ['hero','about','projects','experience','contact'];
+    const getActive = () => {
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      // Offset so the nav updates slightly after section top passes
+      const offset = scrollY + viewportHeight * 0.25; // 25% from top
+      let current = 'hero';
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const top = el.offsetTop;
+        if (top <= offset) current = id; else break;
+      }
+      setActive(current);
+    };
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => { getActive(); ticking = false; });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    getActive();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
+  const links: { id: string; label: string }[] = [
+    { id: 'about', label: 'About' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'experience', label: 'Experience' },
+    { id: 'contact', label: 'Contact' }
+  ];
+
   return (
     <div className="min-h-screen w-full bg-neutral-950 bg-hero-gradient bg-[length:200%_200%] animate-gradient text-neutral-100 relative overflow-x-hidden">
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_40%_20%,rgba(59,130,246,0.15),transparent_60%),radial-gradient(circle_at_70%_60%,rgba(139,92,246,0.15),transparent_60%)]" />
-      <header className="fixed top-0 left-0 right-0 z-40 backdrop-blur-md/30 border-b border-white/10 bg-black/30">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-          <a href="#" className="font-display text-lg font-bold tracking-tight">Aznirul iqmal<span className="text-brand-400">.</span></a>
-          <div className="flex items-center gap-6 text-sm font-medium">
-            <a href="#about" className="hover:text-brand-400 transition-colors">About</a>
-            <a href="#projects" className="hover:text-brand-400 transition-colors">Projects</a>
-            <a href="#experience" className="hover:text-brand-400 transition-colors">Experience</a>
-            <a href="#contact" className="hover:text-brand-400 transition-colors">Contact</a>
-            {/*<ThemeToggle />*/}
-
-          </div>
+      {/* Floating Glass Oval Header */}
+      <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
+        <nav className="relative inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/5/50 backdrop-blur-sm px-6 py-2 text-sm shadow-[0_4px_24px_-4px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)] ring-1 ring-white/10">
+          {/* decorative liquid sheen */}
+          <span className="pointer-events-none absolute -inset-px rounded-full bg-gradient-to-b from-white/20 via-white/5 to-transparent opacity-40 mix-blend-overlay" />
+          <a
+            href="#hero"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setActive('hero');
+              // update hash manually (optional)
+              if (history.pushState) {
+                history.pushState(null, '', '#hero');
+              } else {
+                window.location.hash = '#hero';
+              }
+            }}
+            className="relative mr-2 pl-2 pr-3 py-1.5 font-display text-[20px] font-semibold tracking-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400/60"
+          >
+            Aznirul<span className="text-brand-400">.</span>
+          </a>
+          {links.map(link => {
+            const isActive = active === link.id;
+            return (
+              <a
+                key={link.id}
+                href={`#${link.id}`}
+                className="relative rounded-full px-4 py-1.5 font-medium text-neutral-300 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400/60"
+              >
+                {isActive && (
+                  <motion.span layoutId="nav-pill" className="absolute inset-0 rounded-full bg-white/10 dark:bg-white/15 backdrop-blur-lg shadow-inner" transition={{type:'spring', stiffness:320, damping:28}} />
+                )}
+                <span className={`relative z-10 mix-blend-normal ${isActive ? 'text-white font-semibold' : ''}`}>{link.label}</span>
+              </a>
+            );
+          })}
+          {/* Dot indicator between groups (optional removed) */}
+          {/*<ThemeToggle />*/}
         </nav>
+
       </header>
-      <main className="pt-24">{mounted && <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:0.6}}>{children}</motion.div>}</main>
+      <main className="pt-32">{mounted && <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:0.6}}>{children}</motion.div>}</main>
       <footer className="relative z-10 mt-32 border-t border-white/10 py-10 text-center text-xs text-neutral-400">© {new Date().getFullYear()} Aznirul Iqmal. Crafted with React & Tailwind.</footer>
     </div>
   );
