@@ -27,15 +27,39 @@ export const Contact = () => {
     const formData = new FormData(form);
     formData.append('form-name', 'contact');
     try {
+      const body = new URLSearchParams(formData as any).toString();
       const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData as any).toString()
+        body
       });
-      if (!response.ok) throw new Error('Failed request');
+      if (!response.ok) {
+        const txt = await response.text();
+        throw new Error('Bad status ' + response.status + ' ' + txt.slice(0,120));
+      }
       setStatus('success');
       form.reset();
-    } catch (err) {
+    } catch (err:any) {
+      console.error('Form submit failed', err);
+      // Fallback: attempt native submission (lets Netlify handle if JS fetch failed)
+      try {
+        const native = document.createElement('form');
+        native.action = '/';
+        native.method = 'POST';
+        native.style.display = 'none';
+        native.innerHTML = `<input type="hidden" name="form-name" value="contact" />`;
+        for (const [k,v] of (formData as any).entries()) {
+          if (k === 'form-name') continue; // already added
+          const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = k;
+            input.value = v as string;
+            native.appendChild(input);
+        }
+        document.body.appendChild(native);
+        native.submit();
+        return; // stop state changes; page will navigate
+      } catch {}
       setStatus('error');
       setError('Something went wrong. Please try again or email me directly.');
     }
@@ -47,7 +71,7 @@ export const Contact = () => {
       <p className="text-neutral-300 max-w-2xl">Got a project in mind or just want to say hello? Drop me a line using the form below or reach out via the links.</p>
 
       <div className="mt-10 grid gap-10 md:grid-cols-[1fr_minmax(0,320px)]">
-        <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" data-netlify-recaptcha="true" onSubmit={handleSubmit} className="group relative rounded-2xl border border-white/10 bg-white/5/50 p-8 backdrop-blur-md shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_4px_30px_-10px_rgba(0,0,0,0.6)]">
+  <form name="contact" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" data-netlify-recaptcha="true" onSubmit={handleSubmit} className="group relative rounded-2xl border border-white/10 bg-white/5/50 p-8 backdrop-blur-md shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_4px_30px_-10px_rgba(0,0,0,0.6)]">
           <input type="hidden" name="form-name" value="contact" />
           <input type="hidden" name="submittedAt" value={String(Date.now())} />
           <p className="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
