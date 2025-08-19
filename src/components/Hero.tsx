@@ -42,10 +42,10 @@ export const Hero = () => {
             />
           </div>
       <span className="block font-semibold mt-4 py-2 bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-white/70 text-[clamp(1.25rem,3.2vw,3.25rem)]">
-            Creative Design &amp; Full-Stack Developer
+            Full-Stack Developer | Creative
           </span>
         </h1>
-        <p className="mt-6 text-lg text-neutral-300"> This is my Portfolio where I craft delightful, accessible interfaces and immersive multimedia experiences bridging design, code and storytelling.</p>
+        <p className="mt-6 text-lg text-neutral-300"> Welcome to my humble portfolio site where I gather all the information about myself and showcase my work in crafting delightful experiences bridging design, code and storytelling.</p>
         <div className="mt-8 flex flex-wrap items-center py-10 gap-4 justify-center">
           <motion.a
             href="#projects"

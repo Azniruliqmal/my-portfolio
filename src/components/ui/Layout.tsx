@@ -50,8 +50,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     <div className="min-h-screen w-full bg-neutral-950 bg-hero-gradient bg-[length:200%_200%] animate-gradient text-neutral-100 relative overflow-x-hidden">
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_40%_20%,rgba(59,130,246,0.15),transparent_60%),radial-gradient(circle_at_70%_60%,rgba(139,92,246,0.15),transparent_60%)]" />
       {/* Floating Glass Oval Header */}
-      <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
-        <nav className="relative inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/5/50 backdrop-blur-sm px-6 py-2 text-sm shadow-[0_4px_24px_-4px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)] ring-1 ring-white/10">
+      <header className="fixed top-2 sm:top-4 left-0 right-0 z-50 flex justify-center px-2 sm:px-4">
+        <nav className="relative flex items-center gap-0.5 sm:gap-1 rounded-full border border-white/15 bg-white/5/50 backdrop-blur-sm px-2.5 sm:px-5 py-1.5 sm:py-2 text-[12px] sm:text-sm shadow-[0_4px_24px_-4px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)] ring-1 ring-white/10 max-w-[calc(100%-1rem)] overflow-hidden">
           {/* decorative liquid sheen */}
           <span className="pointer-events-none absolute -inset-px rounded-full bg-gradient-to-b from-white/20 via-white/5 to-transparent opacity-40 mix-blend-overlay" />
           <a
@@ -67,7 +67,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 window.location.hash = '#hero';
               }
             }}
-            className="relative mr-2 pl-2 pr-3 py-1.5 font-display text-[20px] font-semibold tracking-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400/60"
+            className="relative mr-1 sm:mr-2 pl-2 pr-2 sm:pr-3 py-1.5 font-display text-[16px] sm:text-[19px] font-semibold tracking-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400/60 whitespace-nowrap"
           >
             Aznirul<span className="text-brand-400">.</span>
           </a>
@@ -77,7 +77,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               <a
                 key={link.id}
                 href={`#${link.id}`}
-                className="relative rounded-full px-4 py-1.5 font-medium text-neutral-300 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400/60"
+                className="relative rounded-full px-2.5 sm:px-3 py-1.5 font-medium text-neutral-300 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400/60 whitespace-nowrap"
               >
                 {isActive && (
                   <motion.span layoutId="nav-pill" className="absolute inset-0 rounded-full bg-white/10 dark:bg-white/15 backdrop-blur-lg shadow-inner" transition={{type:'spring', stiffness:320, damping:28}} />

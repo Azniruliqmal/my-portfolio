@@ -1,76 +1,30 @@
 {
   "projects": [
     {
-      "title": "MamyPoko UI",
-      "subtitle": "Client Brand Enhancement",
-      "description": "High-impact UI/UX design solutions improving clarity & brand visibility across e-commerce touchpoints.",
-      "tags": ["UI Audit", "Brand", "Design System"],
-      "url": "#",
-      "category": "uiux"
+      "title": "SceneSplit AI",
+      "subtitle": "AI for Filmmakers (Capstone Project) 2025",
+      "description": "Application for filmmakers to streamline their workflow with AI-powered script and production tools.",
+      "tags": ["Python", "FastAPI", "Vue", "TypeScript", "Pydantic", "LangChain", "MongoDB", "Gemini LLM"],
+      "video": "https://drive.google.com/file/d/1bYi40FQtM7GYcPt2twAOdozsqJOYOUoP/view?usp=drive_link",
+      "poster": "",
+      "url": "https://github.com/Azniruliqmal/SceneSplit-AI-Capstone.git",
+      "category": "AI Apps"
     },
     {
-      "title": "GIMMedia UX",
-      "subtitle": "Website Revamp",
-      "description": "Led end-to-end management and UX improvement of the official GIMMedia website with accessibility upgrades.",
-      "tags": ["Information Architecture", "Accessibility", "Web"],
-      "url": "#",
-      "category": "uiux"
-    },
-    {
-      "title": "E-commerce Flow",
-      "subtitle": "Checkout Optimization",
+      "title": "AI Chatbot Assistant",
+      "subtitle": "AI Chatbot Assistant",
       "description": "Conceptual redesign streamlining cart → checkout flow reducing friction and highlighting trust signals.",
       "tags": ["UX Research", "Flow Mapping", "Wireframes"],
       "url": "#",
-      "category": "uiux"
+      "category": "AI Apps"
     },
     {
-      "title": "Fintech Dashboard Redesign",
-      "subtitle": "Analytics Experience",
-      "description": "Task success +32% via progressive disclosure, semantic color, and responsive data density controls.",
-      "tags": ["Design System", "Accessibility", "Dashboard"],
+      "title": "SugarBomb Management",
+      "subtitle": "HRM System (FYP Project) 2020",
+      "description": "Created an HRM system for SugarBomb to automate and improve the management of employee data. Purposed of this only for Final Year Project.",
+      "tags": ["HTML", "CSS", "SQL"],
       "url": "#",
-      "category": "uiux"
-    },
-    {
-      "title": "Wellness Mobile App",
-      "subtitle": "Habit Formation Prototype",
-      "description": "Cross-platform prototype with adaptive theming and personalized habit loop engine.",
-      "tags": ["React Native", "Prototype", "Statecharts"],
-      "url": "#",
-      "category": "app"
-    },
-    {
-      "title": "Micro-learning App",
-      "subtitle": "Gamified Lessons",
-      "description": "Lightweight mobile experience delivering bite-sized lessons with streaks & progress analytics.",
-      "tags": ["Gamification", "Mobile", "UX"],
-      "url": "#",
-      "category": "app"
-    },
-    {
-      "title": "Interactive 3D Landing",
-      "subtitle": "Immersive Microsite",
-      "description": "Three.js narrative scroll with GPU particles and subtle depth-guided parallax.",
-      "tags": ["Three.js", "Motion", "Storytelling"],
-      "url": "#",
-      "category": "multimedia"
-    },
-    {
-      "title": "Product Explainer Video",
-      "subtitle": "Motion & Editing",
-      "description": "Animated explainer combining UI captures, kinetic typography and branded transitions.",
-      "tags": ["After Effects", "Editing", "Brand"],
-      "url": "#",
-      "category": "multimedia"
-    },
-    {
-      "title": "Brand Motion Reel",
-      "subtitle": "Showreel Montage",
-      "description": "Cut showcasing motion principles across UI interactions, logo reveals and micro-animations.",
-      "tags": ["Motion", "Reel", "Showcase"],
-      "url": "#",
-      "category": "multimedia"
+      "category": "Management App"
     }
   ]
 }
