@@ -92,7 +92,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
       </header>
       <main className="pt-32">{mounted && <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:0.6}}>{children}</motion.div>}</main>
-      <footer className="relative z-10 mt-32 border-t border-white/10 py-10 text-center text-xs text-neutral-400">© {new Date().getFullYear()} Aznirul Iqmal. Crafted with React & Tailwind.</footer>
+      <footer className="relative z-10 mt-32 border-t border-white/10 py-10 text-center text-xs text-neutral-400">© {new Date().getFullYear()} This Portfolio belongs to Aznirul Iqmal. Crafted with React & Tailwind.</footer>
     </div>
   );
 };

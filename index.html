@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Aznirul Iqmal – Product Designer & Creative Technologist Portfolio" />
+    <meta name="description" content="Aznirul Iqmal – Full-Stack Dev & Creative Technologist Portfolio" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
@@ -17,6 +17,14 @@
   </head>
   <body class="bg-neutral-950 text-neutral-100 font-sans selection:bg-brand-500/30 selection:text-white">
     <div id="root"></div>
+    <!-- Hidden Netlify form (for build time form detection) -->
+    <form name="contact" netlify netlify-honeypot="bot-field" data-netlify-recaptcha="true" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+      <input type="hidden" name="submittedAt" />
+      <div data-netlify-recaptcha="true"></div>
+    </form>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
