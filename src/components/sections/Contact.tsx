@@ -10,7 +10,7 @@ export const Contact = () => {
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault(); // we'll send via fetch then show success without navigating
     setStatus('submitting');
     setError(null);
 
@@ -24,18 +24,46 @@ export const Contact = () => {
       return;
     }
     const form = e.currentTarget;
-    const formData = new FormData(form);
-    formData.append('form-name', 'contact');
+    const formData = new FormData(form); // already contains fields + hidden form-name
+    // Build body with form-name first (Netlify sometimes picky when using fetch)
+    const params = new URLSearchParams();
+    params.append('form-name', 'contact');
+    for (const [k,v] of formData.entries()) {
+      if (k === 'form-name') continue;
+      params.append(k, v as string);
+    }
     try {
-      const body = new URLSearchParams(formData as any).toString();
+      const body = params.toString();
       const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body
+        body,
+        redirect: 'follow'
       });
       if (!response.ok) {
         const txt = await response.text();
         throw new Error('Bad status ' + response.status + ' ' + txt.slice(0,120));
+      }
+      // Optional: verify Netlify processed by checking header
+      if (!response.headers.get('x-nf-request-id')) {
+        console.warn('Netlify form processing header missing; fallback to native submit.');
+        // Native submit to guarantee capture
+        const native = document.createElement('form');
+        native.action = '/';
+        native.method = 'POST';
+        native.style.display = 'none';
+        native.innerHTML = `<input type="hidden" name="form-name" value="contact" />`;
+        for (const [k,v] of params.entries()) {
+          if (k === 'form-name') continue;
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = k;
+          input.value = v;
+          native.appendChild(input);
+        }
+        document.body.appendChild(native);
+        native.submit();
+        return;
       }
       setStatus('success');
       form.reset();
@@ -71,7 +99,7 @@ export const Contact = () => {
       <p className="text-neutral-300 max-w-2xl">Got a project in mind or just want to say hello? Drop me a line using the form below or reach out via the links.</p>
 
       <div className="mt-10 grid gap-10 md:grid-cols-[1fr_minmax(0,320px)]">
-  <form name="contact" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" data-netlify-recaptcha="true" onSubmit={handleSubmit} className="group relative rounded-2xl border border-white/10 bg-white/5/50 p-8 backdrop-blur-md shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_4px_30px_-10px_rgba(0,0,0,0.6)]">
+  <form name="contact" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" onSubmit={handleSubmit} className="group relative rounded-2xl border border-white/10 bg-white/5/50 p-8 backdrop-blur-md shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_4px_30px_-10px_rgba(0,0,0,0.6)]">
           <input type="hidden" name="form-name" value="contact" />
           <input type="hidden" name="submittedAt" value={String(Date.now())} />
           <p className="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
@@ -89,7 +117,7 @@ export const Contact = () => {
               <label htmlFor="message" className="mb-2 block text-sm font-medium tracking-wide text-neutral-300">Message *</label>
               <textarea id="message" name="message" required rows={6} placeholder="Tell me a little about what you're looking to build or how I can help." className="resize-y w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm/6 text-white placeholder:text-neutral-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40" />
             </div>
-            <div data-netlify-recaptcha="true" className="rounded-lg bg-white/5 p-3 text-xs text-neutral-400" />
+            {/* reCAPTCHA placeholder removed (not configured). Add back only if keys set and widget rendered. */}
             <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex-1 text-xs text-neutral-500">{status === 'success' ? <span className="text-emerald-400">Message sent! I'll get back soon.</span> : status === 'error' ? <span className="text-red-400">{error}</span> : "I'll reply within 1–2 business days."}</div>
               <div className="flex items-center gap-3">

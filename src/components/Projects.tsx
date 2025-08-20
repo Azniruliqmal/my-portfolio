@@ -1,13 +1,15 @@
 import { motion } from 'framer-motion';
 import data from '../content/projects.json';
-import { useState } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 type P = typeof data.projects[number] & { video?: string; poster?: string };
 
 // Single project card with optional video playback
-const ProjectCard: React.FC<{ project: P; index: number }> = ({ project: p, index }) => {
+const ProjectCard: React.FC<{ project: P; index: number; onExpand?: (p: P) => void }> = ({ project: p, index, onExpand }) => {
   const [playing, setPlaying] = useState(false);
   const hasVideo = !!p.video;
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [paused, setPaused] = useState(false);
   const showCode = !!p.url && p.url.trim() !== '' && p.url.trim() !== '#';
   return (
     <motion.div
@@ -22,39 +24,80 @@ const ProjectCard: React.FC<{ project: P; index: number }> = ({ project: p, inde
       <div className="relative h-40 w-full flex items-center justify-center border-b border-white/10 overflow-hidden bg-white/5">
         {hasVideo ? (
           <>
-            {playing ? (
-              <video
-                className="absolute inset-0 h-full w-full object-cover"
-                src={p.video}
-                poster={p.poster}
-                autoPlay
-                controls
-                playsInline
-                onEnded={() => setPlaying(false)}
-                preload="metadata"
+            {/* Poster (shows before playing) */}
+            {!playing && p.poster && (
+              <img
+                src={p.poster}
+                alt={`${p.title} poster`}
+                className="absolute inset-0 h-full w-full object-cover select-none pointer-events-none"
+                loading="lazy"
               />
-            ) : (
-              <button
-                type="button"
-                onClick={() => setPlaying(true)}
-                className="relative z-10 flex h-16 w-16 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-md shadow-inner transition hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60"
-                aria-label={`Play video preview for ${p.title}`}
-              >
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/90">
-                  <polygon points="6 4 20 12 6 20 6 4" />
-                </svg>
-              </button>
             )}
-            {/* Hover / idle gradient */}
-            <div className={`absolute inset-0 transition duration-500 ${playing ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'} bg-[radial-gradient(circle_at_30%_35%,rgba(34,211,238,0.18),transparent_65%),radial-gradient(circle_at_80%_70%,rgba(168,85,247,0.18),transparent_65%)]`}/>
+            {playing ? (
+              <>
+                <video
+                  ref={videoRef}
+                  className="absolute inset-0 h-full w-full object-cover cursor-pointer"
+                  src={p.video}
+                  poster={p.poster}
+                  autoPlay
+                  playsInline
+                  aria-label={`${paused ? 'Play' : 'Pause'} ${p.title} preview`}
+                  onClick={() => {
+                    const v = videoRef.current; if (!v) return;
+                    if (v.paused) { v.play(); setPaused(false); } else { v.pause(); setPaused(true); }
+                  }}
+                  onPlay={() => setPaused(false)}
+                  onPause={() => setPaused(true)}
+                  onEnded={() => { setPlaying(false); setPaused(false); }}
+                  preload="metadata"
+                />
+                {paused && (
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/25">
+                    <span className="material-symbols-outlined text-white/90 text-6xl drop-shadow">play_circle</span>
+                  </div>
+                )}
+                {paused && onExpand && (
+                  <button
+                    type="button"
+                    onClick={() => onExpand(p)}
+                    className="absolute top-2 right-2 z-20 inline-flex h-9 w-9 items-center justify-center rounded-md bg-neutral-900/70 border border-white/20 text-white/90 backdrop-blur-md shadow-inner transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60"
+                    aria-label={`Open large video for ${p.title}`}
+                  >
+                    <span className="material-symbols-outlined text-xl leading-none">open_in_full</span>
+                  </button>
+                )}
+              </>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setPlaying(true)}
+                  className="relative z-10 flex h-16 w-16 items-center justify-center rounded-full border border-white/20 bg-neutral-900/50 backdrop-blur-md shadow-inner transition hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60"
+                  aria-label={`Play video preview for ${p.title}`}
+                >
+                  <span className="material-symbols-outlined text-white/90 text-4xl leading-none">play_circle</span>
+                </button>
+                {onExpand && (
+                  <button
+                    type="button"
+                    onClick={() => onExpand(p)}
+                    className="absolute top-2 right-2 z-10 inline-flex h-9 w-9 items-center justify-center rounded-md bg-neutral-900/60 border border-white/15 text-white/90 backdrop-blur-md shadow-inner transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60"
+                    aria-label={`Open large video for ${p.title}`}
+                  >
+                    <span className="material-symbols-outlined text-xl leading-none">open_in_full</span>
+                  </button>
+                )}
+              </>
+            )}
+            {/* Hover / idle gradient overlay (only when not playing to avoid covering video controls) */}
+            <div className={`pointer-events-none absolute inset-0 transition duration-500 ${playing ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'} bg-[radial-gradient(circle_at_30%_35%,rgba(34,211,238,0.18),transparent_65%),radial-gradient(circle_at_80%_70%,rgba(168,85,247,0.18),transparent_65%)]`}/>
           </>
         ) : (
           <>
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-[radial-gradient(circle_at_30%_35%,rgba(34,211,238,0.18),transparent_65%),radial-gradient(circle_at_80%_70%,rgba(168,85,247,0.18),transparent_65%)]" />
-            <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-md shadow-inner">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/80">
-                <polygon points="5 3 19 12 5 21 5 3" />
-              </svg>
+            <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-neutral-900/50 backdrop-blur-md shadow-inner">
+              <span className="material-symbols-outlined text-white/85 text-4xl leading-none">play_circle</span>
             </div>
           </>
         )}
@@ -103,6 +146,27 @@ const ProjectCard: React.FC<{ project: P; index: number }> = ({ project: p, inde
 
 export const Projects = () => {
   const allProjects = data.projects as P[];
+  const [expanded, setExpanded] = useState<P | null>(null);
+
+  const close = useCallback(() => setExpanded(null), []);
+
+  // Close on ESC
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') close();
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [close]);
+
+  // Prevent body scroll when modal open
+  useEffect(() => {
+    if (expanded) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => { document.body.style.overflow = prev; };
+    }
+  }, [expanded]);
 
   return (
     <section id="projects" className="relative mx-auto max-w-6xl px-6 py-24">
@@ -120,9 +184,55 @@ export const Projects = () => {
         className="grid gap-8 md:grid-cols-3"
       >
         {allProjects.map((p: P, i: number) => (
-          <ProjectCard key={p.title} project={p} index={i} />
+          <ProjectCard key={p.title} project={p} index={i} onExpand={p.video ? setExpanded : undefined} />
         ))}
       </motion.div>
+
+      {/* Modal for expanded video */}
+      {expanded && (
+        <div className="fixed inset-0 z-[80] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-md opacity-0 animate-[fadeIn_.35s_ease_forwards]" onClick={close} />
+          <motion.div
+            initial={{opacity:0, scale:0.9, y:20}}
+            animate={{opacity:1, scale:1, y:0}}
+            exit={{opacity:0, scale:0.9}}
+            transition={{type:'spring', stiffness:210, damping:22}}
+            className="relative z-10 w-full max-w-4xl overflow-hidden rounded-2xl border border-white/15 bg-neutral-900/80 backdrop-blur-xl shadow-2xl"
+          >
+            <div className="flex items-center justify-between px-5 py-3 border-b border-white/10">
+              <h3 className="font-semibold text-sm md:text-base tracking-tight">{expanded.title} – Preview</h3>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={close}
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-white/5 text-white/70 hover:text-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60"
+                  aria-label="Close video"
+                >
+                  <span className="material-symbols-outlined text-lg">close</span>
+                </button>
+              </div>
+            </div>
+            <div className="relative aspect-video w-full bg-black">
+              <video
+                key={expanded.video}
+                src={expanded.video}
+                poster={expanded.poster}
+                controls
+                autoPlay
+                playsInline
+                className="h-full w-full object-contain"
+                preload="metadata"
+              />
+              <div className="pointer-events-none absolute inset-0 opacity-40 mix-blend-overlay bg-[radial-gradient(circle_at_30%_20%,rgba(34,211,238,0.25),transparent_60%),radial-gradient(circle_at_80%_70%,rgba(168,85,247,0.25),transparent_60%)]" />
+            </div>
+            <div className="px-5 py-4 flex flex-col gap-3">
+              <p className="text-xs text-neutral-400 line-clamp-3">{expanded.description}</p>
+              <div className="flex flex-wrap gap-2">
+                {expanded.tags?.map(t => <span key={t} className="rounded-full bg-white/5 px-2 py-1 text-[10px] font-medium tracking-wide text-neutral-400">{t}</span>)}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </section>
   );
 };

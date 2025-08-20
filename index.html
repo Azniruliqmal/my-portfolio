@@ -7,6 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <!-- Material Symbols (for play_circle icon) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <!-- Favicons -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -18,12 +20,12 @@
   <body class="bg-neutral-950 text-neutral-100 font-sans selection:bg-brand-500/30 selection:text-white">
     <div id="root"></div>
     <!-- Hidden Netlify form (for build time form detection) -->
-    <form name="contact" netlify netlify-honeypot="bot-field" data-netlify-recaptcha="true" hidden>
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
       <input type="text" name="name" />
       <input type="email" name="email" />
       <textarea name="message"></textarea>
       <input type="hidden" name="submittedAt" />
-      <div data-netlify-recaptcha="true"></div>
     </form>
     <script type="module" src="/src/main.tsx"></script>
   </body>
