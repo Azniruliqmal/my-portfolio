@@ -1,43 +1,18 @@
 # Aznirul Iqmal – Portfolio
 
-Modern interactive portfolio built with React (Vite + TS), Tailwind CSS, Framer Motion and Lottie.
+This is my personal portfolio website, designed to showcase my skills and projects. It's a modern, interactive single-page application built with React (Vite + TS), Tailwind CSS, Framer Motion and Lottie.
 
 ## Features
-- Glassmorphism hero with animated radial gradients & micro-interaction CTA
-- Lottie micro-interactions (sparkle)
-- Scroll-based motion reveals
-- Dark / Light theme toggle persisted to system preference
-- JSON (Git-based) content for projects (extendable to CMS)
-- Plausible analytics script for privacy-friendly tracking
-- Accessible semantic HTML and focus states
+- Interactive Hero Section: The landing page features a unique "glassmorphism" hero section with animated radial gradients and a micro-interactive call-to-action button, adding a dynamic and modern feel.
+- Engaging UI/UX: I've incorporated subtle Lottie micro-interactions to bring elements to life and used scroll-based motion reveals to make content appear as you navigate the page.
+- User-Centric Design: The website includes a dark/light theme toggle that persists based on your system preferences, providing a comfortable viewing experience for all users.
+- Scalable Architecture: Project details are managed using a JSON-based content system, which makes it easy to add new projects and could even be extended to a full Content Management System (CMS) in the future.
+- Privacy-Friendly Analytics: I've implemented a plausible analytics script to ensure that user tracking is handled in a privacy-conscious way.
+- Accessibility: The site is built with accessible, semantic HTML and carefully managed focus states to ensure a great experience for all users, including those with disabilities.
 
 ## Tech Stack
-React 18, TypeScript, Vite, Tailwind CSS, Framer Motion, Lottie, Zustand (planned for global state), React Router.
-
-## Content Editing
-Currently project data lives in `src/content/projects.json`. You can replace with a headless CMS later (Sanity, Contentful, Netlify CMS). Keep shape: `{ projects: Project[] }`.
-
-## Development
-Install deps then run dev:
-```
-npm install
-npm run dev
-```
-
-## Build
-```
-npm run build
-npm run preview
-```
-
-## Deploy
-Deploy directly to Vercel (import repo) or Netlify (drag `dist` or connect repo). Vite defaults are production-ready.
-
-## Analytics Events
-Plausible custom events can be sent via:
-```js
-window.plausible?.('CTA Click', { props: { location: 'hero' } });
-```
+# Front-end: React 18, TypeScript, Vite, Tailwind CSS, Framer Motion, Lottie, and Zustand (for global state management).
+# Routing: React Router.
 
 ## License
-MIT
+This project is licensed under the MIT License.
