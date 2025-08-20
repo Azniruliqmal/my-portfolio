@@ -10,86 +10,49 @@ export const Contact = () => {
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // we'll send via fetch then show success without navigating
+    e.preventDefault();
     setStatus('submitting');
     setError(null);
+    const form = e.currentTarget;
 
-    // Simple human heuristic: time on form & minimal message length
+    // Basic anti-spam (time + length) – keep but don't block legitimate quick tests too aggressively
     const elapsed = Date.now() - startTs;
-    const formCheck = new FormData(e.currentTarget);
-    const messagePreview = (formCheck.get('message') as string || '').trim();
-    if (elapsed < 1500 || messagePreview.length < 5) {
+    const fd = new FormData(form);
+    const msg = (fd.get('message') as string || '').trim();
+    if (elapsed < 800 || msg.length < 3) { // lowered thresholds to reduce false negatives
       setStatus('error');
-      setError('Spam suspected. Please add a bit more detail.');
+      setError('Please add a little more detail.');
       return;
     }
-    const form = e.currentTarget;
-    const formData = new FormData(form); // already contains fields + hidden form-name
-    // Build body with form-name first (Netlify sometimes picky when using fetch)
-    const params = new URLSearchParams();
-    params.append('form-name', 'contact');
-    for (const [k,v] of formData.entries()) {
-      if (k === 'form-name') continue;
-      params.append(k, v as string);
-    }
+
+    // Ensure form-name present (safety even though we have hidden input)
+    if (!fd.get('form-name')) fd.append('form-name', 'contact');
+
     try {
-      const body = params.toString();
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body,
-        redirect: 'follow'
-      });
-      if (!response.ok) {
-        const txt = await response.text();
-        throw new Error('Bad status ' + response.status + ' ' + txt.slice(0,120));
-      }
-      // Optional: verify Netlify processed by checking header
-      if (!response.headers.get('x-nf-request-id')) {
-        console.warn('Netlify form processing header missing; fallback to native submit.');
-        // Native submit to guarantee capture
-        const native = document.createElement('form');
-        native.action = '/';
-        native.method = 'POST';
-        native.style.display = 'none';
-        native.innerHTML = `<input type="hidden" name="form-name" value="contact" />`;
-        for (const [k,v] of params.entries()) {
-          if (k === 'form-name') continue;
-          const input = document.createElement('input');
-          input.type = 'hidden';
-          input.name = k;
-          input.value = v;
-          native.appendChild(input);
-        }
-        document.body.appendChild(native);
-        native.submit();
-        return;
-      }
+      // Simpler: let browser build multipart/form-data boundary automatically (Netlify supports this)
+      const res = await fetch('/', { method: 'POST', body: fd });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
       setStatus('success');
       form.reset();
-    } catch (err:any) {
-      console.error('Form submit failed', err);
-      // Fallback: attempt native submission (lets Netlify handle if JS fetch failed)
+    } catch (err) {
+      console.error('Netlify submission failed – fallback', err);
+      // Last-resort fallback: create and submit a hidden form (ensures static POST)
       try {
         const native = document.createElement('form');
         native.action = '/';
         native.method = 'POST';
         native.style.display = 'none';
-        native.innerHTML = `<input type="hidden" name="form-name" value="contact" />`;
-        for (const [k,v] of (formData as any).entries()) {
-          if (k === 'form-name') continue; // already added
+        for (const [k,v] of fd.entries()) {
           const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = k;
-            input.value = v as string;
-            native.appendChild(input);
+          input.type = 'hidden'; input.name = k; input.value = String(v);
+          native.appendChild(input);
         }
         document.body.appendChild(native);
         native.submit();
-        return; // stop state changes; page will navigate
+        return;
       } catch {}
       setStatus('error');
-      setError('Something went wrong. Please try again or email me directly.');
+      setError('Unable to send right now. Please email me directly.');
     }
   };
 
@@ -139,7 +102,7 @@ export const Contact = () => {
             <div className="flex flex-wrap gap-3">
               <a href="mailto:azniruliqmal@gmail.com" className="rounded-lg bg-brand-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40">Email</a>
               <a href="https://www.linkedin.com/in/azniruliqmal/" target="_blank" className="rounded-lg border border-white/15 px-5 py-2.5 text-sm font-medium text-white/90 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30" rel="noreferrer">LinkedIn</a>
-              <a href="dist\\docs\\AZNIRUL_RESUME_LATEST25.pdf" className="rounded-lg border border-white/15 px-5 py-2.5 text-sm font-medium text-white/90 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30">Resume</a>
+              <a href="/dist/docs/AZNIRUL_RESUME_LATEST25.pdf" className="rounded-lg border border-white/15 px-5 py-2.5 text-sm font-medium text-white/90 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30">Resume</a>
             </div>
           </div>
           <div className="text-xs leading-relaxed text-neutral-500">
