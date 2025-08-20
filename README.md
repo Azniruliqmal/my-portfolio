@@ -1,14 +1,10 @@
 # Aznirul Iqmal – Portfolio
 
-This is my personal portfolio website, designed to showcase my skills and projects. It's a modern, interactive single-page application built with React (Vite + TS), Tailwind CSS, Framer Motion and Lottie.
 
-## Features
-- Interactive Hero Section: The landing page features a unique "glassmorphism" hero section with animated radial gradients and a micro-interactive call-to-action button, adding a dynamic and modern feel.
-- Engaging UI/UX: I've incorporated subtle Lottie micro-interactions to bring elements to life and used scroll-based motion reveals to make content appear as you navigate the page.
-- User-Centric Design: The website includes a dark/light theme toggle that persists based on your system preferences, providing a comfortable viewing experience for all users.
-- Scalable Architecture: Project details are managed using a JSON-based content system, which makes it easy to add new projects and could even be extended to a full Content Management System (CMS) in the future.
-- Privacy-Friendly Analytics: I've implemented a plausible analytics script to ensure that user tracking is handled in a privacy-conscious way.
-- Accessibility: The site is built with accessible, semantic HTML and carefully managed focus states to ensure a great experience for all users, including those with disabilities.
+This portfolio showcases my work and skills through a clean and modern user interface. The website is organized into distinct sections accessible via the top navigation bar: "About," "Projects," "Experience," and "Contact."
+The "Projects" section highlights a few of my recent works, each with a brief description and the technologies used, such as Python, Vue, and TypeScript. Some project cards also include a video thumbnail and a "View Code" button, providing a quick look into the project and a link to the codebase.
+The "Experience" section presents a chronological overview of my professional and internship history. Each entry includes the job title, company, dates, and a clear, bulleted list of my key responsibilities and accomplishments.
+Finally, the "Contact" page provides multiple ways for visitors to reach out. It features a simple contact form with fields for name, email, and message. Additionally, it offers direct links to my email, LinkedIn, and resume for a more personal connection.
 
 ## Tech Stack
  - Front-end: React 18, TypeScript, Vite, Tailwind CSS, Framer Motion, Lottie, and Zustand (for global state management).
