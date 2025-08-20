@@ -11,8 +11,8 @@ This is my personal portfolio website, designed to showcase my skills and projec
 - Accessibility: The site is built with accessible, semantic HTML and carefully managed focus states to ensure a great experience for all users, including those with disabilities.
 
 ## Tech Stack
-# Front-end: React 18, TypeScript, Vite, Tailwind CSS, Framer Motion, Lottie, and Zustand (for global state management).
-# Routing: React Router.
+ - Front-end: React 18, TypeScript, Vite, Tailwind CSS, Framer Motion, Lottie, and Zustand (for global state management).
+ - Routing: React Router.
 
 ## License
 This project is licensed under the MIT License.
