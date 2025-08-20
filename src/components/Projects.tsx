@@ -8,6 +8,7 @@ type P = typeof data.projects[number] & { video?: string; poster?: string };
 const ProjectCard: React.FC<{ project: P; index: number }> = ({ project: p, index }) => {
   const [playing, setPlaying] = useState(false);
   const hasVideo = !!p.video;
+  const showCode = !!p.url && p.url.trim() !== '' && p.url.trim() !== '#';
   return (
     <motion.div
       key={p.title}
@@ -71,20 +72,22 @@ const ProjectCard: React.FC<{ project: P; index: number }> = ({ project: p, inde
         </div>
         {/* Actions */}
         <div className="relative z-10 mt-auto flex justify-end gap-3 pt-2">
-          <a
-            href={p.url}
-            className="relative inline-flex items-center gap-1.5 rounded-md bg-neutral-900/70 px-3.5 py-2 text-xs font-medium text-white shadow-sm ring-1 ring-white/10 hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60 transition before:absolute before:inset-0 before:rounded-md before:bg-[radial-gradient(circle_at_30%_30%,rgba(34,211,238,0.55),transparent_60%),radial-gradient(circle_at_70%_70%,rgba(217,70,239,0.45),transparent_65%)] before:opacity-0 hover:before:opacity-100 before:blur before:transition before:duration-300"
-          >
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="h-4 w-4"
+          {showCode && (
+            <a
+              href={p.url}
+              className="relative inline-flex items-center gap-1.5 rounded-md bg-neutral-900/70 px-3.5 py-2 text-xs font-medium text-white shadow-sm ring-1 ring-white/10 hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60 transition before:absolute before:inset-0 before:rounded-md before:bg-[radial-gradient(circle_at_30%_30%,rgba(34,211,238,0.55),transparent_60%),radial-gradient(circle_at_70%_70%,rgba(217,70,239,0.45),transparent_65%)] before:opacity-0 hover:before:opacity-100 before:blur before:transition before:duration-300"
             >
-              <path fillRule="evenodd" clipRule="evenodd" d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.94.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.07-.74.08-.73.08-.73 1.18.08 1.81 1.22 1.81 1.22 1.05 1.8 2.76 1.28 3.43.98.11-.76.41-1.28.74-1.57-2.55-.29-5.23-1.28-5.23-5.72 0-1.27.45-2.31 1.2-3.13-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.19a11 11 0 0 1 2.9-.39c.99 0 1.99.13 2.9.39 2.2-1.5 3.17-1.19 3.17-1.19.63 1.58.23 2.75.11 3.04.75.82 1.2 1.86 1.2 3.13 0 4.45-2.69 5.42-5.25 5.71.42.36.79 1.07.79 2.17 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
-            </svg>
-            <span className="relative">View Code</span>
-          </a>
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-4 w-4"
+              >
+                <path fillRule="evenodd" clipRule="evenodd" d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.94.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.07-.74.08-.73.08-.73 1.18.08 1.81 1.22 1.81 1.22 1.05 1.8 2.76 1.28 3.43.98.11-.76.41-1.28.74-1.57-2.55-.29-5.23-1.28-5.23-5.72 0-1.27.45-2.31 1.2-3.13-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.19a11 11 0 0 1 2.9-.39c.99 0 1.99.13 2.9.39 2.2-1.5 3.17-1.19 3.17-1.19.63 1.58.23 2.75.11 3.04.75.82 1.2 1.86 1.2 3.13 0 4.45-2.69 5.42-5.25 5.71.42.36.79 1.07.79 2.17 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
+              </svg>
+              <span className="relative">View Code</span>
+            </a>
+          )}
           {/*<a
             href={p.url}
             className="inline-flex items-center gap-1 rounded-md border border-white/15 bg-white/5 px-3 py-2 text-xs font-medium text-white/80 hover:border-white/25 hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60"

@@ -5,17 +5,16 @@
       "subtitle": "AI for Filmmakers (Capstone Project) 2025",
       "description": "Application for filmmakers to streamline their workflow with AI-powered script and production tools.",
       "tags": ["Python", "FastAPI", "Vue", "TypeScript", "Pydantic", "LangChain", "MongoDB", "Gemini LLM"],
-      "video": "https://drive.google.com/file/d/1bYi40FQtM7GYcPt2twAOdozsqJOYOUoP/view?usp=drive_link",
-      "poster": "",
+      "video": "/media/scenesplit-demo.mp4",
+      "poster": "/media/scenesplit-thumb.PNG",
       "url": "https://github.com/Azniruliqmal/SceneSplit-AI-Capstone.git",
       "category": "AI Apps"
     },
     {
       "title": "AI Chatbot Assistant",
-      "subtitle": "AI Chatbot Assistant",
-      "description": "Conceptual redesign streamlining cart → checkout flow reducing friction and highlighting trust signals.",
-      "tags": ["UX Research", "Flow Mapping", "Wireframes"],
-      "url": "#",
+      "subtitle": "AI Chatbot Assistant (On-going)",
+      "description": "Conceptual redesign chatbot interface for improved user interaction. Streamlining the conversation flow and enhancing user experience.",
+      "tags": ["Generative AI", "Chatbot", "Machine Learning", "Natural Language Processing", "LangChain"],
       "category": "AI Apps"
     },
     {
