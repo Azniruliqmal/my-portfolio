@@ -107,7 +107,7 @@ export const Contact = () => {
             <div className="flex flex-wrap gap-3">
               <a href="mailto:azniruliqmal@gmail.com" className="rounded-lg bg-brand-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40">Email</a>
               <a href="https://www.linkedin.com/in/azniruliqmal/" target="_blank" className="rounded-lg border border-white/15 px-5 py-2.5 text-sm font-medium text-white/90 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30" rel="noreferrer">LinkedIn</a>
-              <a href="/dist/docs/AZNIRUL_RESUME_LATEST25.pdf" className="rounded-lg border border-white/15 px-5 py-2.5 text-sm font-medium text-white/90 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30">Resume</a>
+              {/*<a href="/dist/docs/AZNIRUL_RESUME_LATEST25.pdf" className="rounded-lg border border-white/15 px-5 py-2.5 text-sm font-medium text-white/90 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30">Resume</a>*/}
             </div>
           </div>
           <div className="text-xs leading-relaxed text-neutral-500">
