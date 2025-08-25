@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import data from '../content/projects.json';
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { Section, MotionFade } from './ui/Section';
 
 type P = typeof data.projects[number] & { video?: string; poster?: string };
 
@@ -169,24 +170,27 @@ export const Projects = () => {
   }, [expanded]);
 
   return (
-    <section id="projects" className="relative mx-auto max-w-6xl px-6 py-24">
-      <div className="text-center mb-10">
-        <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight">My Projects</h2>
-        <p className="mt-3 text-sm md:text-base text-neutral-400 max-w-2xl mx-auto">Here are some of my recent projects that showcase my skills and creativity</p>
-        <div className="mt-4 h-0.5 w-24 mx-auto bg-cyan-400/90 rounded-full" />
-      </div>
-      {/* Grid (all projects) */}
-      <motion.div
-        initial={{opacity:0, y:10}}
-        whileInView={{opacity:1, y:0}}
-        viewport={{once:true, amount:0.2}}
-        transition={{duration:0.6}}
-        className="grid gap-8 md:grid-cols-3"
-      >
-        {allProjects.map((p: P, i: number) => (
-          <ProjectCard key={p.title} project={p} index={i} onExpand={p.video ? setExpanded : undefined} />
-        ))}
-      </motion.div>
+    <Section id="projects" className="relative mx-auto max-w-6xl px-6 py-24" stagger>
+      <MotionFade>
+        <div className="text-center mb-10">
+          <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight">My Projects</h2>
+          <p className="mt-3 text-sm md:text-base text-neutral-400 max-w-2xl mx-auto">Here are some of my recent projects that showcase my skills and creativity</p>
+          <div className="mt-4 h-0.5 w-24 mx-auto bg-cyan-400/90 rounded-full" />
+        </div>
+      </MotionFade>
+      <MotionFade>
+        <motion.div
+          initial={{opacity:0, y:10}}
+          whileInView={{opacity:1, y:0}}
+          viewport={{once:true, amount:0.2}}
+          transition={{duration:0.6}}
+          className="grid gap-8 md:grid-cols-3"
+        >
+          {allProjects.map((p: P, i: number) => (
+            <ProjectCard key={p.title} project={p} index={i} onExpand={p.video ? setExpanded : undefined} />
+          ))}
+        </motion.div>
+      </MotionFade>
 
       {/* Modal for expanded video */}
       {expanded && (
@@ -233,6 +237,6 @@ export const Projects = () => {
           </motion.div>
         </div>
       )}
-    </section>
+    </Section>
   );
 };
